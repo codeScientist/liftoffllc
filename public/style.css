@@ -1,29 +1,39 @@
 #container {
 	width: 70%;
 	margin-right: auto;
-	margin-left: auto; 
+	margin-left: auto;
+	margin-bottom: 20px;
 }
 
 .question {
-	margin: 10px 0;
-	padding: 10px 0;
-	background: #333;
-	color: #ddd;
-	border: 2px solid grey;
+	margin-bottom: 15px;
+	border: 1px solid #ddd;
 	border-radius: 5px;
 }
 
-.inputOption {
-	color: black;
+.question-text {
+	background: #333;
+	color: #eee;
+	padding: 10px;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px; 
+}
+
+.answer {
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	padding: 10px;
 	background: #eee;
+	color: #444;
+}
+
+.inputOption {
 }
 
 .radioOptionList {
 	list-style: none;
 	margin: 0;
-	padding: 0;
-	color: black;
-	background: #eee;	
+	padding: 0;	
 }
 
 .invalid {
@@ -38,4 +48,8 @@
 	font-size: 10px;
     color: red;
     padding: 10px 0;
+}
+
+.submit-btn {
+	margin-right: 20px;
 }

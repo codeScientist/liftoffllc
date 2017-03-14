@@ -1,6 +1,6 @@
 [
 	{
-		"question": "what is 1 + 1?",
+		"question": "What is 1 + 1?",
 		"answer": "2",
 		"options": [
 			"1",
@@ -10,7 +10,39 @@
 		]
 	},
 	{
-		"question": "what is 4 + 5?",
+		"question": "What is 4 + 5?",
 		"answer": "9" 
+	},
+	{
+		"question": "What is 5x6?",
+		"answer": "30",
+		"options": [
+			"12",
+			"20",
+			"30",
+			"42"
+		]
+	},
+	{
+		"question": "What is 7 + 9?",
+		"answer": "16" 
+	},
+	{
+		"question": "What is the capital of India?",
+		"answer": "new delhi" 
+	},
+	{
+		"question": "What is square of 45?",
+		"answer": "2025" 
+	},
+	{
+		"question": "What is capital of Karnataka?",
+		"answer": "bangalore",
+		"options": [
+			"bangalore",
+			"jaipur",
+			"goa",
+			"lahore"
+		]
 	}
 ]

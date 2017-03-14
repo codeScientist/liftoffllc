@@ -41741,7 +41741,7 @@ exports.Chart = _chart2.default;
 
 module.exports = [
 	{
-		"question": "what is 1 + 1?",
+		"question": "What is 1 + 1?",
 		"answer": "2",
 		"options": [
 			"1",
@@ -41751,8 +41751,40 @@ module.exports = [
 		]
 	},
 	{
-		"question": "what is 4 + 5?",
+		"question": "What is 4 + 5?",
 		"answer": "9"
+	},
+	{
+		"question": "What is 5x6?",
+		"answer": "30",
+		"options": [
+			"12",
+			"20",
+			"30",
+			"42"
+		]
+	},
+	{
+		"question": "What is 7 + 9?",
+		"answer": "16"
+	},
+	{
+		"question": "What is the capital of India?",
+		"answer": "new delhi"
+	},
+	{
+		"question": "What is square of 45?",
+		"answer": "2025"
+	},
+	{
+		"question": "What is capital of Karnataka?",
+		"answer": "bangalore",
+		"options": [
+			"bangalore",
+			"jaipur",
+			"goa",
+			"lahore"
+		]
 	}
 ];
 
@@ -68622,7 +68654,7 @@ class InputOption extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
         type: 'text',
         value: this.props.value,
         name: this.props.name,
-        className: 'inputOption',
+        className: 'form-control inputOption',
         onChange: this.props.onAnswerChange
       })
     );
@@ -68635,11 +68667,15 @@ class OptionList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
     var name = "question-" + this.props.index;
 
     if (!this.props.options || this.props.options.length === 0) {
-      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(InputOption, {
-        name: name,
-        value: this.props.userAnswer,
-        onAnswerChange: this.props.onAnswerChange
-      });
+      return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'answer' },
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(InputOption, {
+          name: name,
+          value: this.props.userAnswer,
+          onAnswerChange: this.props.onAnswerChange
+        })
+      );
     }
 
     var tempThis = this;
@@ -68654,9 +68690,13 @@ class OptionList extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component
       });
     });
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
-      'ul',
-      { className: 'radioOptionList' },
-      optionList
+      'div',
+      { className: 'answer' },
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'ul',
+        { className: 'radioOptionList' },
+        optionList
+      )
     );
   }
 }
@@ -68676,7 +68716,11 @@ class Question extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
       'div',
       { className: classNames.join(' ') },
-      "Q" + (this.props.index + 1) + ": " + this.props.question,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'div',
+        { className: 'question-text' },
+        "Q" + (this.props.index + 1) + ": " + this.props.question
+      ),
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(OptionList, {
         options: this.props.options,
         index: this.props.index,
@@ -68803,26 +68847,34 @@ class Questionnaire extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
       var incorrect = 0;
       var correct = 0;
       this.state.questions.forEach(function (q) {
-        if (q.userAnswer === q.answer) {
+        if (q.userAnswer.toLowerCase() === q.answer) {
           correct++;
         } else {
           incorrect++;
         }
       });
 
+      console.log("dbg1: ", correct);
+      console.log("dbg2: ", incorrect);
+
       var data = {
         labels: ['correct', 'incorrect'],
         datasets: [{
           label: '# of correct vs incorrect',
+          scaleOverride: true,
+          scaleSteps: 8,
+          scale: 10,
+          scaleStartValue: 0,
+          scaleStepWidth: 1,
           data: [correct, incorrect],
-          backgroundColor: ["#2ecc71", "#3498db"]
+          backgroundColor: ["#2ecc71", "#aa3346"]
         }]
       };
 
       chart = __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3_react_chartjs_2__["Bar"], {
         data: data,
-        width: 100,
-        height: 50,
+        width: 900,
+        height: 700,
         options: {
           maintainAspectRatio: false,
           title: {
@@ -68837,6 +68889,11 @@ class Questionnaire extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
       'div',
       null,
       __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        'h1',
+        null,
+        'Questionnaire'
+      ),
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
         'form',
         { onSubmit: this.onSubmit },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(QuestionList, {
@@ -68846,8 +68903,8 @@ class Questionnaire extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Compon
           isSubmitted: this.state.isSubmitted
         }),
         validationError,
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'submit', value: 'submit' }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { type: 'button', value: 'clear', onClick: this.onClear })
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'btn btn-default submit-btn', type: 'submit', value: 'Submit' }),
+        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('input', { className: 'btn btn-default clear-btn', type: 'button', value: 'Clear all', onClick: this.onClear })
       ),
       chart
     );

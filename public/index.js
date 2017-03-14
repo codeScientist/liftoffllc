@@ -36,7 +36,7 @@ class InputOption extends React.Component {
           type="text" 
           value={this.props.value} 
           name={this.props.name} 
-          className="inputOption" 
+          className="form-control inputOption" 
           onChange={this.props.onAnswerChange}
         />
       </div>
@@ -51,11 +51,13 @@ class OptionList extends React.Component {
 
     if (!this.props.options || this.props.options.length === 0) {
       return (
-        <InputOption 
-          name={name} 
-          value={this.props.userAnswer} 
-          onAnswerChange={this.props.onAnswerChange} 
-        />
+        <div className="answer">
+          <InputOption 
+            name={name} 
+            value={this.props.userAnswer} 
+            onAnswerChange={this.props.onAnswerChange} 
+          />
+        </div>
       );
     }
 
@@ -73,9 +75,11 @@ class OptionList extends React.Component {
       );
     });
     return (
-      <ul className="radioOptionList">
-        {optionList}
-      </ul>
+      <div className="answer">
+        <ul className="radioOptionList">
+          {optionList}
+        </ul>
+      </div>
     );
   }
 }
@@ -94,7 +98,7 @@ class Question extends React.Component {
 
     return (
       <div className={classNames.join(' ')}>
-        {"Q" + (this.props.index + 1) + ": " + this.props.question}
+        <div className="question-text">{"Q" + (this.props.index + 1) + ": " + this.props.question}</div>
         <OptionList 
           options={this.props.options} 
           index={this.props.index} 
@@ -222,45 +226,54 @@ class Questionnaire extends React.Component {
       var incorrect = 0;
       var correct = 0;
       this.state.questions.forEach(function(q){
-        if (q.userAnswer === q.answer) {
+        if (q.userAnswer.toLowerCase() === q.answer) {
           correct++;
         } else {
           incorrect++;
         }
       });
 
+      console.log("dbg1: ", correct);
+      console.log("dbg2: ", incorrect);
+
       var data = {
         labels: ['correct', 'incorrect'],
         datasets: [
           {
             label: '# of correct vs incorrect',
+            scaleOverride: true,
+            scaleSteps: 8,
+            scale: 10,
+            scaleStartValue:0,
+            scaleStepWidth:1,
             data: [correct, incorrect],
             backgroundColor: [
               "#2ecc71",
-              "#3498db"
+              "#aa3346"
             ]
           }
         ]
       };
 
       chart = (
-        <Bar
-            data={data}
-            width={100}
-            height={50}
-            options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: 'correct vs incorrect'
-                }
-            }}
-        />
+          <Bar
+              data={data}
+              width={900}
+              height={700}
+              options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: 'correct vs incorrect'
+                  }
+              }}
+          />
       );
     }
 
     return (
       <div>
+        <h1>Questionnaire</h1>
         <form onSubmit={this.onSubmit}>
           <QuestionList 
             questions={this.state.questions} 
@@ -269,8 +282,8 @@ class Questionnaire extends React.Component {
             isSubmitted={this.state.isSubmitted}
           />
           {validationError}
-          <input type="submit" value="submit" />
-          <input type="button" value="clear" onClick={this.onClear} />
+          <input className="btn btn-default submit-btn" type="submit" value="Submit" />
+          <input className="btn btn-default clear-btn" type="button" value="Clear all" onClick={this.onClear} />
         </form>
         {chart}
       </div>
