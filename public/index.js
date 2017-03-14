@@ -237,20 +237,17 @@ class Questionnaire extends React.Component {
       console.log("dbg2: ", incorrect);
 
       var data = {
-        labels: ['correct', 'incorrect'],
+        labels: ['# of Questions'],
         datasets: [
           {
-            label: '# of correct vs incorrect',
-            scaleOverride: true,
-            scaleSteps: 8,
-            scale: 10,
-            scaleStartValue:0,
-            scaleStepWidth:1,
-            data: [correct, incorrect],
-            backgroundColor: [
-              "#2ecc71",
-              "#aa3346"
-            ]
+            label: 'correct',
+            data: [correct],
+            backgroundColor: ["#2ecc71"]
+          },
+          {
+            label: 'incorrect',
+            data: [incorrect],
+            backgroundColor: ["#e23434"]
           }
         ]
       };
@@ -258,10 +255,16 @@ class Questionnaire extends React.Component {
       chart = (
           <Bar
               data={data}
-              width={900}
-              height={700}
               options={{
-                  maintainAspectRatio: false,
+                  scales: {
+                      yAxes: [{
+                          ticks: {
+                              max: this.state.questions.length + 1,
+                              min: 0,
+                              stepSize: 1
+                          }
+                      }]
+                  },
                   title: {
                     display: true,
                     text: 'correct vs incorrect'
