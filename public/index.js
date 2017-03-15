@@ -255,20 +255,21 @@ class Questionnaire extends React.Component {
       chart = (
           <Bar
               data={data}
+              height={400}
               options={{
-                  scales: {
-                      yAxes: [{
-                          ticks: {
-                              max: this.state.questions.length + 1,
-                              min: 0,
-                              stepSize: 1
-                          }
-                      }]
-                  },
-                  title: {
-                    display: true,
-                    text: 'correct vs incorrect'
-                  }
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            max: this.state.questions.length + 1,
+                            min: 0,
+                            stepSize: 1
+                        }
+                    }]
+                },
+                title: {
+                  display: true,
+                  text: 'correct vs incorrect'
+                }
               }}
           />
       );
